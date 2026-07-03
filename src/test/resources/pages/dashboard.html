@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TestMu Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 24px; }
+    #dashboard-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .widget-card { padding: 16px; border: 1px solid #ccc; border-radius: 8px; }
+    #admin-panel { padding: 16px; border: 1px solid #0077cc; background: #eef7ff; display: none; }
+    @media (max-width: 600px) {
+      #dashboard-grid { grid-template-columns: 1fr; }
+      .widget-card { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <h1>TestMu Dashboard</h1>
+  <div id="status">Loading...</div>
+  <div id="dashboard-grid"></div>
+  <div id="admin-panel">Admin-only panel</div>
+  <div>
+    <label for="filter-input">Filter items</label>
+    <input id="filter-input" type="text" placeholder="Type to filter" />
+    <button id="refresh-button">Refresh</button>
+  </div>
+  <div id="items-list"></div>
+
+  <script>
+    var items = [
+      { name: 'Widget Alpha', value: 120, description: 'Performance widget' },
+      { name: 'Widget Beta', value: 230, description: 'Analytics widget' },
+      { name: 'Widget Gamma', value: 95, description: 'Security widget' }
+    ];
+
+    function renderWidgets() {
+      var container = document.getElementById('dashboard-grid');
+      container.innerHTML = '';
+      var titles = ['Performance', 'Errors', 'Stability'];
+      var values = [74, 3, 99];
+      for (var i = 0; i < titles.length; i++) {
+        var card = document.createElement('div');
+        card.className = 'widget-card';
+        card.textContent = titles[i] + ': ' + values[i];
+        container.appendChild(card);
+      }
+    }
+
+    function renderItems(filter) {
+      if (!filter) {
+        filter = '';
+      }
+      var list = document.getElementById('items-list');
+      var normalized = filter.toLowerCase();
+      var filtered = [];
+      for (var i = 0; i < items.length; i++) {
+        if (items[i].name.toLowerCase().indexOf(normalized) >= 0) {
+          filtered.push(items[i]);
+        }
+      }
+      filtered.sort(function(a, b) { return b.value - a.value; });
+      var html = '';
+      for (var j = 0; j < filtered.length; j++) {
+        html += '<div class="widget-card"><strong>' + filtered[j].name + '</strong><br/>' + filtered[j].description + '<br/>Value: ' + filtered[j].value + '</div>';
+      }
+      list.innerHTML = html || '<div>No items found</div>';
+    }
+
+    function showStatus(message) {
+      document.getElementById('status').textContent = message;
+    }
+
+    function initialize() {
+      var token = localStorage.getItem('authToken');
+      var expiry = Number(localStorage.getItem('authExpiry') || '0');
+      var role = localStorage.getItem('userRole');
+      if (!token || Date.now() > expiry) {
+        showStatus('Session expired or invalid. Please login again.');
+        return;
+      }
+      showStatus('Welcome tester@testmu.ai (' + role + ')');
+      renderWidgets();
+      renderItems('');
+      if (role === 'admin') {
+        document.getElementById('admin-panel').style.display = 'block';
+      }
+      document.getElementById('refresh-button').addEventListener('click', function() {
+        var filter = document.getElementById('filter-input').value;
+        renderItems(filter);
+      });
+    }
+
+    initialize();
+  </script>
+</body>
+</html>

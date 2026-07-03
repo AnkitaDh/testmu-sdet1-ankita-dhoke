@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TestMu Login</title>
+  <style>body { font-family: Arial, sans-serif; padding: 32px; } label, input, button { display: block; margin: 12px 0; } #message { color: #a00; }</style>
+</head>
+<body>
+  <h1>TestMu Login</h1>
+  <label for="email">Email</label>
+  <input id="email" type="email" value="tester@testmu.ai" />
+  <label for="password">Password</label>
+  <input id="password" type="password" value="TestMu123!" />
+  <button id="login-button">Login</button>
+  <button id="forgot-password-button">Forgot password</button>
+  <div id="message"></div>
+
+  <script>
+    var validUser = { email: 'tester@testmu.ai', password: 'TestMu123!', role: 'admin' };
+    var LOCKOUT_THRESHOLD = 5;
+    var LOCKOUT_DURATION_MS = 25000;
+
+    function getLockoutState() {
+      var raw = localStorage.getItem('loginState');
+      return raw ? JSON.parse(raw) : { attempts: 0, lockedUntil: 0 };
+    }
+
+    function setLockoutState(state) {
+      localStorage.setItem('loginState', JSON.stringify(state));
+    }
+
+    function showMessage(text) {
+      document.getElementById('message').textContent = text;
+    }
+
+    document.getElementById('login-button').addEventListener('click', function() {
+      var email = document.getElementById('email').value;
+      var password = document.getElementById('password').value;
+      var state = getLockoutState();
+      var now = Date.now();
+      if (state.lockedUntil && now < state.lockedUntil) {
+        showMessage('Too many failed login attempts. Please wait before retrying.');
+        return;
+      }
+
+      if (email === validUser.email && password === validUser.password) {
+        localStorage.removeItem('loginState');
+        localStorage.setItem('authToken', 'valid-token');
+        localStorage.setItem('authExpiry', String(Date.now() + 3600 * 1000));
+        localStorage.setItem('userRole', validUser.role);
+        window.location.href = window.location.href.replace(/login\.html$/, 'dashboard.html');
+        return;
+      }
+
+      state.attempts += 1;
+      if (state.attempts >= LOCKOUT_THRESHOLD) {
+        state.lockedUntil = now + LOCKOUT_DURATION_MS;
+        showMessage('Too many failed login attempts. Please wait before retrying.');
+      } else {
+        showMessage('Invalid email or password.');
+      }
+      setLockoutState(state);
+    });
+
+    document.getElementById('forgot-password-button').addEventListener('click', function() {
+      var email = document.getElementById('email').value;
+      if (email === validUser.email) {
+        showMessage('Password reset email simulated.');
+      } else {
+        showMessage('Email not found.');
+      }
+    });
+  </script>
+</body>
+</html>
