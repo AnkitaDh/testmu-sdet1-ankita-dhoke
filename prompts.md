@@ -1,6 +1,6 @@
 # Task 2 Raw Prompts
 
-This file preserves the actual prompt sequence used for Task 2, including the refinement prompts that followed the first pass.
+This file preserves the actual prompt sequence used for Task 2, including the refinement prompts that followed the first pass. The prompts were tailored to the locally implemented login, dashboard, and API flows rather than to speculative product features.
 
 ## Login module
 ### Prompt 1

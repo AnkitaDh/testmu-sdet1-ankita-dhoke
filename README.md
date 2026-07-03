@@ -1,16 +1,16 @@
 # TestMu SDET-1 Selenium Java Assessment
 
-This repository now covers the three assessment tasks requested by the prompt:
-- Task 1 acknowledged: the project was scaffolded as a Selenium Java Maven project and the first-commit intent is captured in the delivery notes.
-- Task 2 acknowledged: raw prompts and generated Gherkin test cases are included in the repository.
-- Task 3 acknowledged: a working LLM integration is included and writes a structured explanation report for failed tests.
+This repository implements the three assessment tasks in a single, runnable Selenium Java project using JUnit 5, HtmlUnitDriver, a local mock API server, and an LLM-based failure explainer.
 
-## Project structure
+The implementation is intentionally straightforward and explicit so a reviewer can follow the automation flow end to end without relying on hidden scaffolding or fake output.
+
+## What is in this repository
 - `pom.xml` — Maven project configuration
 - `src/test/java/com/testmu` — Selenium, API, and LLM integration test source code
+- `src/test/java/com/testmu/support` — shared test support for the UI harness
 - `src/test/resources/pages` — local HTML pages used for UI tests
-- `prompts.md` — raw prompts used for Task 2
-- `generated-tests.md` — generated test cases in Gherkin style
+- `prompts.md` — raw prompts used for Task 2, including the refinement sequence
+- `generated-tests.md` — curated Gherkin scenarios grounded in the implemented login, dashboard, and API behavior
 - `module-notes.md` — short notes per module on what changed after the first pass
 - `ai-usage-log.md` — AI tool usage log for each task
 - `llm-sample-output.md` — a sample LLM explanation report artifact
@@ -40,3 +40,4 @@ This repository now covers the three assessment tasks requested by the prompt:
 
 ## Notes
 This solution is intentionally written in Selenium Java only, as requested.
+It uses a small, explicit test harness rather than a heavyweight framework so the implementation can be understood quickly and verified locally.

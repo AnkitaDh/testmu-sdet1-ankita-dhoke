@@ -1,6 +1,6 @@
 # Generated Test Cases
 
-This expanded pack is intentionally larger than the first pass to better demonstrate prompt engineering and regression thinking across the three modules.
+This curated pack is grounded in the implemented browser and API flows rather than speculative product behavior, so the scenarios stay close to the actual fixtures and test automation in this repository.
 
 ## Login module
 Feature: Login functionality

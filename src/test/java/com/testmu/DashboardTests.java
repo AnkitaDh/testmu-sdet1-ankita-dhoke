@@ -1,40 +1,16 @@
 package com.testmu;
 
 import com.testmu.llm.LlmFailureReportingExtension;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
+import com.testmu.support.UiTestBase;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-
-import java.io.File;
-import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(LlmFailureReportingExtension.class)
-public class DashboardTests {
-    private WebDriver driver;
-    private String loginUrl;
-    private String dashboardUrl;
-
-    @BeforeEach
-    void setUp() {
-        driver = new HtmlUnitDriver(true);
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-        loginUrl = new File("src/test/resources/pages/login.html").getAbsoluteFile().toURI().toString();
-        dashboardUrl = new File("src/test/resources/pages/dashboard.html").getAbsoluteFile().toURI().toString();
-    }
-
-    @AfterEach
-    void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
-    }
+public class DashboardTests extends UiTestBase {
 
     @Test
     void widgetsLoadCorrectlyForAdminUser() {
