@@ -26,14 +26,17 @@ This repository now covers the three assessment tasks requested by the prompt:
 
 ## Task 3
 - Option A was selected: failure explainer.
-- The implementation calls an OpenAI-compatible chat completion API when `OPENAI_API_KEY` is available.
-- The code now fails fast when no API key is configured, which makes the requirement for a real LLM call explicit and prevents a fake fallback path from being mistaken for a genuine response.
+- The implementation uses a real HTTP request to an OpenAI-compatible chat completions endpoint when a test fails and a valid `OPENAI_API_KEY` is present.
+- The failure explainer requires a valid `OPENAI_API_KEY` (or equivalent) environment variable. If the key is missing or the API call fails, the integration fails fast with a clear error rather than silently falling back to a canned explanation — this was a deliberate choice to keep the LLM call verifiably real rather than mocked.
+- The LLM integration is wired into the JUnit test flow so it is triggered when a test fails, and the code includes a comment explaining why Option A was chosen over Option B.
 - The sample report is stored in `llm-sample-output.md` and will be generated in `target/llm-reports/failure-explanation.json` during real execution with a configured API key.
 
 ## Running tests
 1. Install Java 17 or later.
-2. Run `mvn test` from the repository root.
-3. The UI tests use HtmlUnit through Selenium and the LLM integration writes a report under `target/llm-reports`.
+2. Set `OPENAI_API_KEY` in your environment before running the LLM-integration path. Example: `export OPENAI_API_KEY=your-key-here`
+3. Run `mvn test` from the repository root.
+4. The UI tests use HtmlUnit through Selenium and the LLM integration writes a report under `target/llm-reports`.
+5. Without a configured key, the failure-explainer step will fail rather than pass with fake output.
 
 ## Notes
 This solution is intentionally written in Selenium Java only, as requested.

@@ -1,5 +1,6 @@
 package com.testmu;
 
+import com.testmu.llm.LlmFailureReportingExtension;
 import com.testmu.server.SimpleApiServer;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -7,6 +8,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -16,6 +18,7 @@ import java.nio.charset.StandardCharsets;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(LlmFailureReportingExtension.class)
 public class ApiTests {
     private static SimpleApiServer server;
     private static final HttpClient client = HttpClient.newHttpClient();

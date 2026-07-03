@@ -1,8 +1,10 @@
 package com.testmu;
 
+import com.testmu.llm.LlmFailureReportingExtension;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,6 +17,7 @@ import java.time.Duration;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(LlmFailureReportingExtension.class)
 public class LoginTests {
     private WebDriver driver;
     private String loginUrl;
