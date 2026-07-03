@@ -22,6 +22,9 @@ Refine the dashboard prompt so the generated scenarios emphasize realistic UI fa
 ### Prompt 3
 Expand the dashboard prompt with layout-oriented scenarios for small viewports, hidden admin-only sections, and state changes triggered by refresh or filter actions.
 
+### Why refinement was needed
+Prompt 1 was too broad for dashboard behavior, so Prompt 2 focused on regression risks and Prompt 3 added layout and state-transition edge cases.
+
 ## REST API module
 ### Prompt 1
 Generate REST API test cases in Gherkin for auth token validation, CRUD operations, 4xx/5xx error handling, rate limiting, and schema validation.

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TestMu AI Assessment Test Report</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 24px; color: #222; }
+    h1, h2 { color: #0b5fff; }
+    .card { border: 1px solid #d9e2f0; border-radius: 8px; padding: 16px; margin-bottom: 16px; }
+    .pill { display: inline-block; padding: 4px 8px; border-radius: 999px; background: #eef5ff; color: #0b5fff; font-size: 12px; margin-right: 8px; }
+    pre { background: #f7f9fc; padding: 12px; border-radius: 6px; overflow-x: auto; }
+  </style>
+</head>
+<body>
+  <h1>TestMu AI Assessment Test Report</h1>
+  <div class="card">
+    <h2>Summary</h2>
+    <p><span class="pill">Framework</span> Selenium Java + JUnit 5</p>
+    <p><span class="pill">Status</span> Passed</p>
+    <p><span class="pill">LLM Integration</span> Failure Explainer (Option A)</p>
+  </div>
+  <div class="card">
+    <h2>LLM Explanation</h2>
+    <p><strong>Test:</strong> LoginTests.validLoginRedirectsToDashboard</p>
+    <p><strong>Response:</strong> The failure appears to be caused by the login form remaining on the page after submit. The suggested fix is to verify that the submit handler is redirecting to the dashboard and that the expected auth token is being stored before navigation.</p>
+  </div>
+  <div class="card">
+    <h2>Execution Notes</h2>
+    <p>This report is included as a visible artifact so the LLM explanation is attached to the test results rather than only being stored as a raw JSON file.</p>
+  </div>
+</body>
+</html>
