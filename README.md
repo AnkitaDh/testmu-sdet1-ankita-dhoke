@@ -27,7 +27,7 @@ This repository now covers the three assessment tasks requested by the prompt:
 ## Task 3
 - Option A was selected: failure explainer.
 - The implementation uses a real HTTP request to an OpenAI-compatible chat completions endpoint when a test fails and a valid `OPENAI_API_KEY` is present.
-- The failure explainer requires a valid `OPENAI_API_KEY` (or equivalent) environment variable. If the key is missing or the API call fails, the integration fails fast with a clear error rather than silently falling back to a canned explanation — this was a deliberate choice to keep the LLM call verifiably real rather than mocked.
+- If `OPENAI_API_KEY` is not set, or the API call fails, the test fails fast with a clear error rather than falling back to a canned explanation — this keeps the LLM call verifiably real rather than mocked. Set `OPENAI_API_KEY` in your environment before running `mvn test` if you want the failure-explainer step to pass.
 - The LLM integration is wired into the JUnit test flow so it is triggered when a test fails, and the code includes a comment explaining why Option A was chosen over Option B.
 - The sample report is stored in `llm-sample-output.md` and will be generated in `target/llm-reports/failure-explanation.json` during real execution with a configured API key.
 
